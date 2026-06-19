@@ -1,15 +1,14 @@
 <?php declare(strict_types=1);
-namespace Webkernel\StdInstaller\Composer;
-
+namespace Webkernel\StdLifecycle;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-
-class Plugin implements PluginInterface
+use Webkernel\StdLifecycle\Installer\BaseInstaller;
+class Installer implements PluginInterface
 {
     public function activate(Composer $composer, IOInterface $io): void
     {
-        $composer->getInstallationManager()->addInstaller(new Installer($io, $composer));
+        $composer->getInstallationManager()->addInstaller(new BaseInstaller($io, $composer));
     }
 
     public function deactivate(Composer $composer, IOInterface $io): void {}

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Webkernel\StdInstaller\Composer;
+namespace Webkernel\StdLifecycle\Installer;
 use Composer\Installers\BaseInstaller;
 class WebkernelInstaller extends BaseInstaller
 {

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
-namespace Webkernel\StdInstaller\Composer;
+namespace Webkernel\StdLifecycle\Installer;
 use Composer\Installers\Installer as InstallerBase;
 use Composer\Package\PackageInterface;
-class Installer extends InstallerBase
+class BaseInstaller extends InstallerBase
 {
     private const VENDOR = 'webkernel';
     /** @var list<string> Derived from WebkernelInstaller::$locations keys. */
