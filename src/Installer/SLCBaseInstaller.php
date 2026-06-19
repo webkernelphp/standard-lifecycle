@@ -36,13 +36,14 @@ final class SLCBaseInstaller extends ComposerInstaller
             '{$name}'   => $name,
         ];
 
-        if ($package->getType() === SLCPackageType::ModulePlugin->value) {
+        $type = SLCPackageType::from($package->getType());
+        if ($type->requiresParentModule()) {
             $parent = $this->locations->parentModule($package);
             if ($parent === null) {
                 throw new RuntimeException(sprintf(
-                    'Package "%s" is of type "%s" but does not declare its parent module via extra.webkernel.module.',
+                    'Package "%s" has type "%s" and must declare its parent module via extra.webkernel.module in composer.json.',
                     $package->getName(),
-                    SLCPackageType::ModulePlugin->value,
+                    $type->value,
                 ));
             }
             $replacements['{$parentVendor}'] = $parent['vendor'];

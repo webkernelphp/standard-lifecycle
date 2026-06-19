@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
+
 namespace Webkernel\StdLifecycle\Installer;
+
 use Composer\Composer;
 use Composer\Package\PackageInterface;
 
@@ -8,26 +10,29 @@ final class SLCInstallerLocations
     /** @var array<string, list<SLCPackageType>> */
     private array $templates;
 
-    public function __construct(private readonly Composer $composer)
+    public function __construct(Composer $composer)
     {
-        $vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/') . '/{$vendor}/{$name}/';
+        $vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
 
         $this->templates = [
-            'modules/{$vendor}/{$name}/'                                       => [SLCPackageType::Module],
-            'modules/{$parentVendor}/{$parentName}/plugins/{$vendor}-{$name}/' => [SLCPackageType::ModulePlugin],
-            $vendorDir                                                         => [SLCPackageType::Stdlib],
-            'agents/{$vendor}/{$name}/'                                        => [SLCPackageType::Agent],
-            'ffi/{$vendor}/{$name}/'                                           => [SLCPackageType::Ffi],
-            'extensions/{$vendor}/{$name}/'                                    => [SLCPackageType::Extension],
+            'modules/{$vendor}/{$name}/'                                        => [SLCPackageType::Module],
+            'modules/{$parentVendor}/{$parentName}/features/{$vendor}-{$name}/' => [SLCPackageType::ModuleFeature],
+            'ffi/{$vendor}/{$name}/'                                            => [SLCPackageType::Ffi],
+            $vendorDir . '/{$vendor}/{$name}/' => [
+                SLCPackageType::Assets,
+                SLCPackageType::DevTool,
+                SLCPackageType::Stdlib,
+                SLCPackageType::Engine,
+                SLCPackageType::Element,
+                SLCPackageType::Agent,
+            ],
         ];
     }
 
     /** @return list<string> */
     public function types(): array
     {
-        return array_values(array_unique(
-            array_map(static fn (SLCPackageType $t) => $t->value, array_merge(...array_values($this->templates)))
-        ));
+        return array_map(static fn (SLCPackageType $t) => $t->value, SLCPackageType::cases());
     }
 
     public function destination(PackageInterface $package): ?string
@@ -46,12 +51,6 @@ final class SLCInstallerLocations
         return null;
     }
 
-    /**
-     * Resolve the parent module's vendor/name for a plugin package.
-     *
-     * A plugin declares its parent through:
-     *   "extra": { "webkernel": { "module": "vendor/name" } }
-     */
     public function parentModule(PackageInterface $package): ?array
     {
         $module = $package->getExtra()['webkernel']['module'] ?? null;
