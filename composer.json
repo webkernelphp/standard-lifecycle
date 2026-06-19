@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "webkernel/standard-lifecycle",
-    "description": "Composer plugins and tools to manage the installation, update, and lifecycle of Webkernel modules.",
+    "description": "Composer plugin managing installation and lifecycle of Webkernel modules, plugins, agents, FFI bridges and extensions.",
     "version": "0.1.0",
     "homepage": "https://www.webkernelphp.com/",
     "type": "composer-plugin",
@@ -17,18 +17,16 @@
         "issues": "https://github.com/webkernelphp/standard-installer/issues"
     },
     "require": {
-        "composer/composer": "^2.0",
-        "composer/installers": "^2.0",
+        "php": "^8.1",
         "composer-plugin-api": "^2.0",
-        "laravel/framework": "*"
+        "composer/composer": "^2.0",
+        "composer/installers": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.2",
+        "phpunit/phpunit": "^10.0",
         "squizlabs/php_codesniffer": "^3.3"
     },
     "autoload": {
-        "files": [],
-        "classmap": [],
         "psr-4": {
             "Webkernel\\StdLifecycle\\": "src/"
         }
@@ -42,7 +40,7 @@
         "sort-packages": true
     },
     "extra": {
-        "class": "Webkernel\\StdLifecycle\\Installer",
+        "class": "Webkernel\\StdLifecycle\\SLCInstaller",
         "webkernel": {
             "package_repo": "git@github.com:webkernelphp/standard-installer.git",
             "prefix": "standard"
