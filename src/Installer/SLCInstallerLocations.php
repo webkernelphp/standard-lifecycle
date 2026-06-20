@@ -15,8 +15,8 @@ final readonly class SLCInstallerLocations
         $vendorDir = rtrim((string) $composer->getConfig()->get('vendor-dir'), '/');
 
         $this->templates = [
-            'modules/{$vendor}/{$name}/'                                        => [SLCPackageType::Module],
-            'modules/{$parentVendor}/{$parentName}/features/{$vendor}-{$name}/' => [SLCPackageType::ModuleFeature],
+            'modules/{$vendor}/{$name}/'                                        => [SLCPackageType::BusinessModule],
+            'modules/{$parentVendor}/{$parentName}/features/{$vendor}-{$name}/' => [SLCPackageType::BusinessModuleFeature],
             'ffi/{$vendor}/{$name}/'                                            => [SLCPackageType::Ffi],
             $vendorDir . '/{$vendor}/{$name}/' => [
                 SLCPackageType::Assets,
