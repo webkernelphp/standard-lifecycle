@@ -10,7 +10,7 @@ use RuntimeException;
 
 final class SLCBaseInstaller extends ComposerInstaller
 {
-    private SLCInstallerLocations $locations;
+    private readonly SLCInstallerLocations $locations;
 
     public function __construct(IOInterface $io, Composer $composer)
     {
@@ -18,11 +18,13 @@ final class SLCBaseInstaller extends ComposerInstaller
         $this->locations = new SLCInstallerLocations($composer);
     }
 
+    #[\Override]
     public function supports($packageType): bool
     {
         return in_array($packageType, $this->locations->types(), strict: true);
     }
 
+    #[\Override]
     public function getInstallPath(PackageInterface $package): string
     {
         $template = $this->locations->destination($package);

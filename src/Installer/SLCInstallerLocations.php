@@ -5,14 +5,14 @@ namespace Webkernel\StdLifecycle\Installer;
 use Composer\Composer;
 use Composer\Package\PackageInterface;
 
-final class SLCInstallerLocations
+final readonly class SLCInstallerLocations
 {
     /** @var array<string, list<SLCPackageType>> */
     private array $templates;
 
     public function __construct(Composer $composer)
     {
-        $vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
+        $vendorDir = rtrim((string) $composer->getConfig()->get('vendor-dir'), '/');
 
         $this->templates = [
             'modules/{$vendor}/{$name}/'                                        => [SLCPackageType::Module],
