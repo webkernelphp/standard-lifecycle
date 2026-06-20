@@ -20,9 +20,9 @@ final class SLCInstallerLocations
             'ffi/{$vendor}/{$name}/'                                            => [SLCPackageType::Ffi],
             $vendorDir . '/{$vendor}/{$name}/' => [
                 SLCPackageType::Assets,
+                SLCPackageType::Component,
                 SLCPackageType::DevTool,
                 SLCPackageType::Stdlib,
-                SLCPackageType::Engine,
                 SLCPackageType::Element,
                 SLCPackageType::Agent,
             ],

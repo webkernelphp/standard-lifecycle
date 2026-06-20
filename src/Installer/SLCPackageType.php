@@ -3,11 +3,11 @@ namespace Webkernel\StdLifecycle\Installer;
 enum SLCPackageType: string
 {
     case Assets          = 'webkernel-assets';
+    case Component       = 'webkernel-component';
     case DevTool         = 'webkernel-devtool';
     case Module          = 'webkernel-module';
     case ModuleFeature   = 'webkernel-module-feature';
     case Stdlib          = 'webkernel-stdlib';
-    case Engine          = 'webkernel-engine';
     case Element         = 'webkernel-element';
     case Agent           = 'webkernel-agent';
     case Ffi             = 'webkernel-ffi';
@@ -20,7 +20,7 @@ enum SLCPackageType: string
             self::Module         => 'Autonomous business module.',
             self::ModuleFeature  => 'Feature attached to a parent module. Requires extra.webkernel.module.',
             self::Stdlib         => 'Standard library package.',
-            self::Engine         => 'Internalized or bridged third-party engine providing a foundational capability.',
+            self::Component         => 'Components foundational capability.',
             self::Element        => 'Reusable UI component or Filament element.',
             self::Agent          => 'Agentic worker package.',
             self::Ffi            => 'Native binary bridged through the Webkernel ABI.',
